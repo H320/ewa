@@ -148,6 +148,67 @@ func (in Waves) Imp() Impulses {
 	return in.Impulses
 }
 
+//Extended gets only extended impulses
+func (in Impulses) Extended(extended bool) (out Impulses) {
+
+	for _, one := range in {
+		if one.Extended() == extended {
+			out = append(out, one)
+		}
+	}
+
+	return
+}
+
+//Diagonal gets only diagonal impulses
+func (in Impulses) Diagonal(diagonal bool) (out Impulses) {
+
+	for _, one := range in {
+		if one.Diagonal() == diagonal {
+			out = append(out, one)
+		}
+	}
+
+	return
+}
+
+//Type gets corrections by type
+func (in Corrections) Type(ct CorrectionType) (out Corrections) {
+
+	for _, one := range in {
+		if one.Type() == ct {
+			out = append(out, one)
+		}
+	}
+
+	return
+}
+
+//Zigzag corrections only
+func (in Corrections) Zigzag() (out Corrections) {
+	return in.Type(CTZigzag)
+}
+
+//Flat corrections only
+func (in Corrections) Flat() (out Corrections) {
+	return in.Type(CTFlat)
+}
+
+//Triangle corrections only
+func (in Corrections) Triangle() (out Corrections) {
+	return in.Type(CTTriangle)
+}
+
+//Combo corrections only
+func (in Corrections) Combo() (out Corrections) {
+	return in.Type(CTCombo)
+}
+
+//Triple corrections only
+func (in Corrections) Triple() (out Corrections) {
+	return in.Type(CTTriple)
+}
+
 //Corr gets only impulses
 func (in Waves) Corr() Corrections {
 	return in.Corrections
