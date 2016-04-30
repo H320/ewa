@@ -60,6 +60,24 @@ func (in Waves) To(to float64) (out Waves) {
 	return
 }
 
+//Sub finds waves that have subdivision
+func (in Waves) Sub(has bool) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Sub() == has {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Sub() == has {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
 func (in Waves) dir(dir bool) (out Waves) {
 
 	for _, one := range in.Impulses {
