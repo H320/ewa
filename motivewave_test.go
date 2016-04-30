@@ -19,20 +19,43 @@ var _ = Describe("Motivewave", func() {
 		"/OANDA/analysis/CFD/SPX500USD" +
 		"/Primary Analysis.mwml"
 
-	It("Import", func() {
-		mw := &mwQuery{}
+	Describe("Internals", func() {
 
-		err := mw.importMotiveWaveXML(path)
-		Expect(err).Should(Succeed())
+		It("Import", func() {
+			mw := &mwQuery{}
+
+			err := mw.importMotiveWaveXML(path)
+			Expect(err).Should(Succeed())
+		})
+
+		It("Parse", func() {
+			mw := &mwQuery{}
+
+			err := mw.importMotiveWaveXML(path)
+			Expect(err).Should(Succeed())
+
+			_, err = mw.parse()
+			Expect(err).Should(Succeed())
+		})
 	})
 
-	FIt("Parse", func() {
+	Describe("Selectors", func() {
 		mw := &mwQuery{}
+		_ = mw.importMotiveWaveXML(path)
+		markup, _ := mw.parse()
+		waves := markup.Waves()
 
-		err := mw.importMotiveWaveXML(path)
-		Expect(err).Should(Succeed())
+		It("Degree", func() {
+			waves.Degree(Micro).Print()
+		})
 
-		_, err = mw.parse()
-		Expect(err).Should(Succeed())
+		It("To", func() {
+			waves.To(1869.1).Print()
+		})
+
+		It("From", func() {
+			waves.From(1944.3).Print()
+		})
 	})
+
 })

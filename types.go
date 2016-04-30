@@ -63,3 +63,15 @@ func Degree(degree string) DegreeType {
 
 	return Minuette
 }
+
+//Impulses slice
+type Impulses []*Impulse
+
+//Corrections slice
+type Corrections []*Correction
+
+//Waves - base type for selector
+type Waves struct {
+	Impulses    []*Impulse
+	Corrections []*Correction
+}
