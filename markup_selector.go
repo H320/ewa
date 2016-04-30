@@ -60,6 +60,33 @@ func (in Waves) To(to float64) (out Waves) {
 	return
 }
 
+func (in Waves) dir(dir bool) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Up() == dir {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Up() == dir {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
+//Up finds waves that go up
+func (in Waves) Up() (out Waves) {
+	return in.dir(true)
+}
+
+//Down finds waves that go down
+func (in Waves) Down() (out Waves) {
+	return in.dir(false)
+}
+
 //Degree finds waves that end there
 func (in Waves) Degree(degree DegreeType) (out Waves) {
 
@@ -96,4 +123,58 @@ func (in Waves) Print() {
 	}
 
 	return
+}
+
+//Imp gets only impulses
+func (in Waves) Imp() Impulses {
+	return in.Impulses
+}
+
+//Corr gets only impulses
+func (in Waves) Corr() Corrections {
+	return in.Corrections
+}
+
+//First gets first impulse
+func (in Impulses) First() (*Impulse, bool) {
+	if len(in) > 0 {
+		return in[0], true
+	}
+
+	return nil, false
+}
+
+//Last gets first impulse
+func (in Impulses) Last() (*Impulse, bool) {
+	if len(in) > 1 {
+		return in[len(in)-1], true
+	}
+
+	if len(in) == 1 {
+		return in[0], true
+	}
+
+	return nil, false
+}
+
+//First gets first correction
+func (in Corrections) First() (*Correction, bool) {
+	if len(in) > 0 {
+		return in[0], true
+	}
+
+	return nil, false
+}
+
+//Last gets first correction
+func (in Corrections) Last() (*Correction, bool) {
+	if len(in) > 1 {
+		return in[len(in)-1], true
+	}
+
+	if len(in) == 1 {
+		return in[0], true
+	}
+
+	return nil, false
 }
