@@ -5,19 +5,18 @@ type DegreeType uint
 
 // Degrees of the wave
 const (
-	_                  = iota
-	Primary DegreeType = iota
-	Intermediate
-	Minor
-	Minute
-	Minuette
-	Subminuette
-	Micro
-	Submicro
-	Miniscule
-	Nano
+	Pico DegreeType = 1 << iota
 	Subnano
-	Pico
+	Nano
+	Miniscule
+	Submicro
+	Micro
+	Subminuette
+	Minuette
+	Minute
+	Minor
+	Intermediate
+	Primary
 )
 
 //CorrectionType type
@@ -36,29 +35,29 @@ const (
 //Degree - gets degree type from string
 func Degree(degree string) DegreeType {
 	switch degree {
-	case "Primary":
+	case "PRIMARY":
 		return Primary
-	case "Intermediate":
+	case "INTERMEDIATE":
 		return Intermediate
-	case "Minor":
+	case "MINOR":
 		return Minor
-	case "Minute":
+	case "MINUTE":
 		return Minute
-	case "Minuette":
+	case "MINUETTE":
 		return Minuette
-	case "Subminuette":
+	case "SUBMINUETTE":
 		return Subminuette
-	case "Micro":
+	case "MICRO":
 		return Micro
-	case "Submicro":
+	case "SUBMICRO":
 		return Submicro
-	case "Miniscule":
+	case "MINISCULE":
 		return Miniscule
-	case "Nano":
+	case "NANO":
 		return Nano
-	case "Subnano":
+	case "SUBNANO":
 		return Subnano
-	case "Pico":
+	case "PICO":
 		return Pico
 	}
 

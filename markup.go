@@ -63,7 +63,7 @@ func (m *Markup) addCorrection(correction *Correction) *Correction {
 func (m *Markup) processImpulseWave(w mwImpulse) {
 
 	degree := Degree(w.Degree)
-	lessDegree := degree << 1
+	lessDegree := degree >> 1
 
 	//Generating points
 
@@ -119,7 +119,7 @@ func (m *Markup) processCorrections(mwQuery *mwQuery) {
 	for _, w := range mwQuery.Corrections {
 
 		degree := Degree(w.Degree)
-		lessDegree := degree << 1
+		lessDegree := degree >> 1
 
 		//Generating points
 
@@ -166,7 +166,7 @@ func (m *Markup) processTriangles(mwQuery *mwQuery) {
 	for _, w := range mwQuery.Triangles {
 
 		degree := Degree(w.Degree)
-		lessDegree := degree << 1
+		lessDegree := degree >> 1
 
 		//Generating points
 
@@ -215,7 +215,7 @@ func (m *Markup) processTriangles(mwQuery *mwQuery) {
 func (m *Markup) processTripleWave(w mwComboTriple) {
 
 	degree := Degree(w.Degree)
-	lessDegree := degree << 1
+	lessDegree := degree >> 1
 
 	//Generating points
 
@@ -261,7 +261,7 @@ func (m *Markup) processTripleWave(w mwComboTriple) {
 func (m *Markup) processComboWave(w mwComboTriple) {
 
 	degree := Degree(w.Degree)
-	lessDegree := degree << 1
+	lessDegree := degree >> 1
 
 	//Generating points
 
