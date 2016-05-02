@@ -123,6 +123,78 @@ func (in Waves) Degree(degree DegreeType) (out Waves) {
 	return
 }
 
+//DegreeGreaterOr finds waves that degree GreaterOr
+func (in Waves) DegreeGreaterOr(degree DegreeType) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Degree >= degree {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Degree >= degree {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
+//DegreeGreater finds waves that degree GreaterOr
+func (in Waves) DegreeGreater(degree DegreeType) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Degree > degree {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Degree > degree {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
+//DegreeLessOr finds waves that degree GreaterOr
+func (in Waves) DegreeLessOr(degree DegreeType) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Degree <= degree {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Degree <= degree {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
+//DegreeLess finds waves that degree GreaterOr
+func (in Waves) DegreeLess(degree DegreeType) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Degree < degree {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Degree < degree {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
 //Print selector
 func (in Waves) Print() {
 	for _, one := range in.Impulses {
