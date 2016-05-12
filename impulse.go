@@ -1,5 +1,10 @@
 package ewa
 
+//Degree - does it has subwaves
+func (i Impulse) Degree() DegreeType {
+	return i.WaveDegree
+}
+
 //Sub - does it has subwaves
 func (i Impulse) Sub() bool {
 	return i.W1 != nil && i.W2 != nil && i.W3 != nil && i.W4 != nil && i.W5 != nil

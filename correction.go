@@ -1,5 +1,10 @@
 package ewa
 
+//Degree - does it has subwaves
+func (c Correction) Degree() DegreeType {
+	return c.WaveDegree
+}
+
 //Sub - does it has subwaves
 func (c Correction) Sub() bool {
 	return c.Zigzag != nil || c.Flat != nil ||

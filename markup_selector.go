@@ -123,13 +123,13 @@ func (in Waves) Down() (out Waves) {
 func (in Waves) Degree(degree DegreeType) (out Waves) {
 
 	for _, one := range in.Impulses {
-		if one.Degree == degree {
+		if one.Degree() == degree {
 			out.Impulses = append(out.Impulses, one)
 		}
 	}
 
 	for _, one := range in.Corrections {
-		if one.Degree == degree {
+		if one.Degree() == degree {
 			out.Corrections = append(out.Corrections, one)
 		}
 	}
@@ -141,13 +141,13 @@ func (in Waves) Degree(degree DegreeType) (out Waves) {
 func (in Waves) DegreeGreaterOr(degree DegreeType) (out Waves) {
 
 	for _, one := range in.Impulses {
-		if one.Degree >= degree {
+		if one.Degree() >= degree {
 			out.Impulses = append(out.Impulses, one)
 		}
 	}
 
 	for _, one := range in.Corrections {
-		if one.Degree >= degree {
+		if one.Degree() >= degree {
 			out.Corrections = append(out.Corrections, one)
 		}
 	}
@@ -159,13 +159,13 @@ func (in Waves) DegreeGreaterOr(degree DegreeType) (out Waves) {
 func (in Waves) DegreeGreater(degree DegreeType) (out Waves) {
 
 	for _, one := range in.Impulses {
-		if one.Degree > degree {
+		if one.Degree() > degree {
 			out.Impulses = append(out.Impulses, one)
 		}
 	}
 
 	for _, one := range in.Corrections {
-		if one.Degree > degree {
+		if one.Degree() > degree {
 			out.Corrections = append(out.Corrections, one)
 		}
 	}
@@ -177,13 +177,13 @@ func (in Waves) DegreeGreater(degree DegreeType) (out Waves) {
 func (in Waves) DegreeLessOr(degree DegreeType) (out Waves) {
 
 	for _, one := range in.Impulses {
-		if one.Degree <= degree {
+		if one.Degree() <= degree {
 			out.Impulses = append(out.Impulses, one)
 		}
 	}
 
 	for _, one := range in.Corrections {
-		if one.Degree <= degree {
+		if one.Degree() <= degree {
 			out.Corrections = append(out.Corrections, one)
 		}
 	}
@@ -195,13 +195,13 @@ func (in Waves) DegreeLessOr(degree DegreeType) (out Waves) {
 func (in Waves) DegreeLess(degree DegreeType) (out Waves) {
 
 	for _, one := range in.Impulses {
-		if one.Degree < degree {
+		if one.Degree() < degree {
 			out.Impulses = append(out.Impulses, one)
 		}
 	}
 
 	for _, one := range in.Corrections {
-		if one.Degree < degree {
+		if one.Degree() < degree {
 			out.Corrections = append(out.Corrections, one)
 		}
 	}
@@ -220,7 +220,7 @@ func (in Corrections) Print() {
 	for _, one := range in {
 		log.WithFields(log.Fields{
 			"M": one.Move,
-			"D": one.Degree,
+			"D": one.Degree(),
 			"T": one.Type(),
 		}).Info("Correction")
 	}
@@ -231,7 +231,7 @@ func (in Impulses) Print() {
 	for _, one := range in {
 		log.WithFields(log.Fields{
 			"M": one.Move,
-			"D": fmt.Sprintf("%3d", one.Degree),
+			"D": fmt.Sprintf("%3d", one.Degree()),
 		}).Info("Impulse")
 	}
 }

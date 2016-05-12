@@ -17,7 +17,7 @@ type Move struct {
 //Wave struc
 type Wave struct {
 	*Move
-	Degree DegreeType
+	WaveDegree DegreeType
 
 	Prev   *Wave
 	Next   *Wave

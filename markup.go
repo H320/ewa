@@ -76,16 +76,16 @@ func (m *Markup) processImpulseWave(w mwImpulse) {
 
 	//Generating sub waves
 
-	subW1 := &Wave{Move: &Move{ori, pW1}, Degree: lessDegree}
-	subW2 := &Wave{Move: &Move{pW1, pW2}, Degree: lessDegree}
-	subW3 := &Wave{Move: &Move{pW2, pW3}, Degree: lessDegree}
-	subW4 := &Wave{Move: &Move{pW3, pW4}, Degree: lessDegree}
-	subW5 := &Wave{Move: &Move{pW4, pW5}, Degree: lessDegree}
+	subW1 := &Wave{Move: &Move{ori, pW1}, WaveDegree: lessDegree}
+	subW2 := &Wave{Move: &Move{pW1, pW2}, WaveDegree: lessDegree}
+	subW3 := &Wave{Move: &Move{pW2, pW3}, WaveDegree: lessDegree}
+	subW4 := &Wave{Move: &Move{pW3, pW4}, WaveDegree: lessDegree}
+	subW5 := &Wave{Move: &Move{pW4, pW5}, WaveDegree: lessDegree}
 
 	setImpulseWaveAdjecency([5]*Wave{subW1, subW2, subW3, subW4, subW5})
 
 	// Generating impulse wave
-	wave := &Wave{Move: &Move{ori, pW5}, Degree: degree}
+	wave := &Wave{Move: &Move{ori, pW5}, WaveDegree: degree}
 
 	setParentWave(wave, subW1, subW2, subW3, subW4, subW5)
 
@@ -130,11 +130,11 @@ func (m *Markup) processCorrections(mwQuery *mwQuery) {
 
 		//Generating sub waves
 
-		wave := &Wave{Move: &Move{ori, pWC}, Degree: degree}
+		wave := &Wave{Move: &Move{ori, pWC}, WaveDegree: degree}
 
-		subWA := &Wave{Move: &Move{ori, pWA}, Degree: lessDegree}
-		subWB := &Wave{Move: &Move{pWA, pWB}, Degree: lessDegree}
-		subWC := &Wave{Move: &Move{pWB, pWC}, Degree: lessDegree}
+		subWA := &Wave{Move: &Move{ori, pWA}, WaveDegree: lessDegree}
+		subWB := &Wave{Move: &Move{pWA, pWB}, WaveDegree: lessDegree}
+		subWC := &Wave{Move: &Move{pWB, pWC}, WaveDegree: lessDegree}
 
 		setParentWave(wave, subWA, subWB, subWC)
 
@@ -179,18 +179,18 @@ func (m *Markup) processTriangles(mwQuery *mwQuery) {
 
 		//Generating sub waves
 
-		wave := &Wave{Move: &Move{ori, pWE}, Degree: degree}
+		wave := &Wave{Move: &Move{ori, pWE}, WaveDegree: degree}
 
-		subWA := &Wave{Move: &Move{ori, pWA}, Degree: lessDegree}
-		subWB := &Wave{Move: &Move{pWA, pWB}, Degree: lessDegree}
-		subWC := &Wave{Move: &Move{pWB, pWC}, Degree: lessDegree}
-		subWD := &Wave{Move: &Move{pWC, pWD}, Degree: lessDegree}
-		subWE := &Wave{Move: &Move{pWD, pWE}, Degree: lessDegree}
+		subWA := &Wave{Move: &Move{ori, pWA}, WaveDegree: lessDegree}
+		subWB := &Wave{Move: &Move{pWA, pWB}, WaveDegree: lessDegree}
+		subWC := &Wave{Move: &Move{pWB, pWC}, WaveDegree: lessDegree}
+		subWD := &Wave{Move: &Move{pWC, pWD}, WaveDegree: lessDegree}
+		subWE := &Wave{Move: &Move{pWD, pWE}, WaveDegree: lessDegree}
 
 		setParentWave(wave, subWA, subWB, subWC, subWD, subWE)
 
 		// Generating triangle wave
-		triangleWave := &Wave{Move: &Move{ori, pWE}, Degree: degree}
+		triangleWave := &Wave{Move: &Move{ori, pWE}, WaveDegree: degree}
 
 		triangleCorrection := m.addCorrection(&Correction{Wave: triangleWave})
 
@@ -228,18 +228,18 @@ func (m *Markup) processTripleWave(w mwComboTriple) {
 
 	//Generating sub waves
 
-	wave := &Wave{Move: &Move{ori, pWZ}, Degree: degree}
+	wave := &Wave{Move: &Move{ori, pWZ}, WaveDegree: degree}
 
-	subWW := &Wave{Move: &Move{ori, pWW}, Degree: lessDegree}
-	subWX := &Wave{Move: &Move{pWW, pWX}, Degree: lessDegree}
-	subWY := &Wave{Move: &Move{pWX, pWY}, Degree: lessDegree}
-	subWX2 := &Wave{Move: &Move{pWY, pWX2}, Degree: lessDegree}
-	subWZ := &Wave{Move: &Move{pWX2, pWZ}, Degree: lessDegree}
+	subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
+	subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
+	subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
+	subWX2 := &Wave{Move: &Move{pWY, pWX2}, WaveDegree: lessDegree}
+	subWZ := &Wave{Move: &Move{pWX2, pWZ}, WaveDegree: lessDegree}
 
 	setParentWave(wave, subWW, subWX, subWY, subWX2, subWZ)
 
 	// Generating triangle wave
-	tripleWave := &Wave{Move: &Move{ori, pWZ}, Degree: degree}
+	tripleWave := &Wave{Move: &Move{ori, pWZ}, WaveDegree: degree}
 
 	tripleCorrection := m.addCorrection(&Correction{Wave: tripleWave})
 
@@ -272,16 +272,16 @@ func (m *Markup) processComboWave(w mwComboTriple) {
 
 	//Generating sub waves
 
-	wave := &Wave{Move: &Move{ori, pWY}, Degree: degree}
+	wave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
 
-	subWW := &Wave{Move: &Move{ori, pWW}, Degree: lessDegree}
-	subWX := &Wave{Move: &Move{pWW, pWX}, Degree: lessDegree}
-	subWY := &Wave{Move: &Move{pWX, pWY}, Degree: lessDegree}
+	subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
+	subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
+	subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
 
 	setParentWave(wave, subWW, subWX, subWY)
 
 	// Generating triangle wave
-	comboWave := &Wave{Move: &Move{ori, pWY}, Degree: degree}
+	comboWave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
 
 	comboCorrection := m.addCorrection(&Correction{Wave: comboWave})
 
