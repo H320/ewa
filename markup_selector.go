@@ -1,6 +1,10 @@
 package ewa
 
-import "github.com/apex/log"
+import (
+	"fmt"
+
+	"github.com/apex/log"
+)
 
 //Waves makes waves structure
 func (m *Markup) Waves() Waves {
@@ -197,22 +201,29 @@ func (in Waves) DegreeLess(degree DegreeType) (out Waves) {
 
 //Print selector
 func (in Waves) Print() {
-	for _, one := range in.Impulses {
-		log.WithFields(log.Fields{
-			"M": one.Move,
-			"D": one.Degree,
-		}).Info("Impulse")
-	}
+	Impulses(in.Impulses).Print()
+	Corrections(in.Corrections).Print()
+}
 
-	for _, one := range in.Corrections {
+//Print corrections selector
+func (in Corrections) Print() {
+	for _, one := range in {
 		log.WithFields(log.Fields{
 			"M": one.Move,
 			"D": one.Degree,
 			"T": one.Type(),
 		}).Info("Correction")
 	}
+}
 
-	return
+//Print impulses selector
+func (in Impulses) Print() {
+	for _, one := range in {
+		log.WithFields(log.Fields{
+			"M": one.Move,
+			"D": fmt.Sprintf("%3d", one.Degree),
+		}).Info("Impulse")
+	}
 }
 
 //Imp gets only impulses

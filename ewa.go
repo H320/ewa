@@ -7,5 +7,11 @@ func (p Point) String() string {
 }
 
 func (m Move) String() string {
-	return fmt.Sprintf("%.2f-%.2f %s", m.Base.P, m.End.P, m.Base.T.Format("Jan 02 15:04"))
+	return fmt.Sprintf(
+		"%.2f>%.2f %s>%s",
+		m.Base.P,
+		m.End.P,
+		m.Base.T.Format("Jan 02 15:04"),
+		m.End.T.Format("Jan 02 15:04"),
+	)
 }
