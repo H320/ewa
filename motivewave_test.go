@@ -49,6 +49,10 @@ var _ = Describe("Motivewave", func() {
 			waves.Degree(Micro).Print()
 		})
 
+		It("Without Sorting", func() {
+			waves.Imp().Print()
+		})
+
 		It("To", func() {
 			waves.To(1869.1).Print()
 		})

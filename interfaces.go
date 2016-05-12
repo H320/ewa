@@ -37,6 +37,9 @@ type Mover interface {
 type Waver interface {
 	Mover
 
+	//Degree - gets degree of the wave
+	Degree() DegreeType
+
 	//Next - ref to obj representing next wave following after this
 	NextWave() Waver
 

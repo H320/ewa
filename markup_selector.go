@@ -8,7 +8,17 @@ import (
 
 //Waves makes waves structure
 func (m *Markup) Waves() Waves {
-	return Waves{Impulses: m.Impulses, Corrections: m.Corrections}
+	w := Waves{}
+
+	for _, i := range m.Impulses {
+		w.Impulses = append(w.Impulses, *i)
+	}
+
+	for _, c := range m.Corrections {
+		w.Corrections = append(w.Corrections, *c)
+	}
+
+	return w
 }
 
 //FromTo finds waves that start and end at specified price
@@ -298,16 +308,16 @@ func (in Waves) Corr() Corrections {
 }
 
 //First gets first impulse
-func (in Impulses) First() (*Impulse, bool) {
+func (in Impulses) First() (Impulse, bool) {
 	if len(in) > 0 {
 		return in[0], true
 	}
 
-	return nil, false
+	return Impulse{}, false
 }
 
 //Last gets first impulse
-func (in Impulses) Last() (*Impulse, bool) {
+func (in Impulses) Last() (Impulse, bool) {
 	if len(in) > 1 {
 		return in[len(in)-1], true
 	}
@@ -316,20 +326,20 @@ func (in Impulses) Last() (*Impulse, bool) {
 		return in[0], true
 	}
 
-	return nil, false
+	return Impulse{}, false
 }
 
 //First gets first correction
-func (in Corrections) First() (*Correction, bool) {
+func (in Corrections) First() (Correction, bool) {
 	if len(in) > 0 {
 		return in[0], true
 	}
 
-	return nil, false
+	return Correction{}, false
 }
 
 //Last gets first correction
-func (in Corrections) Last() (*Correction, bool) {
+func (in Corrections) Last() (Correction, bool) {
 	if len(in) > 1 {
 		return in[len(in)-1], true
 	}
@@ -338,5 +348,5 @@ func (in Corrections) Last() (*Correction, bool) {
 		return in[0], true
 	}
 
-	return nil, false
+	return Correction{}, false
 }
