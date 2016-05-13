@@ -272,6 +272,50 @@ func (in Impulses) Print() {
 	}
 }
 
+//Label selector
+func (in Waves) Label(label string) {
+	Impulses(in.Impulses).Label(label)
+	Corrections(in.Corrections).Label(label)
+}
+
+//Label corrections selector
+func (in Corrections) Label(label string) {
+	for _, one := range in {
+		log.WithFields(log.Fields{
+			"M": one.Move,
+			"D": one.Degree(),
+			"T": one.Type(),
+		}).Info(label)
+	}
+}
+
+//Label impulses selector
+func (in Impulses) Label(label string) {
+	for _, one := range in {
+		log.WithFields(log.Fields{
+			"M": one.Move,
+			"D": fmt.Sprintf("%3d", one.Degree()),
+		}).Info(label)
+	}
+}
+
+//Label corrections selector
+func (one Correction) Label(label string) {
+	log.WithFields(log.Fields{
+		"M": one.Move,
+		"D": one.Degree(),
+		"T": one.Type(),
+	}).Info(label)
+}
+
+//Label impulses selector
+func (one Impulse) Label(label string) {
+	log.WithFields(log.Fields{
+		"M": one.Move,
+		"D": fmt.Sprintf("%3d", one.Degree()),
+	}).Info(label)
+}
+
 //Imp gets only impulses
 func (in Waves) Imp() Impulses {
 	return in.Impulses

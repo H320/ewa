@@ -48,4 +48,7 @@ type Waver interface {
 
 	//Parent - ref to parent wave obj
 	ParentWave() Waver
+
+	//Label - print info about it
+	Label(string)
 }

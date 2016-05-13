@@ -1,6 +1,14 @@
 package ewa
 
-//ParentWave getter
+import "github.com/apex/log"
+
+//Label corrections selector
+func (w Wave) Label(label string) {
+	log.WithFields(log.Fields{
+		"M": w.Move,
+		"D": w.Degree(),
+	}).Info(label)
+}
 
 //Degree gets degree
 func (w Wave) Degree() DegreeType {
