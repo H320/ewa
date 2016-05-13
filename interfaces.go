@@ -50,5 +50,5 @@ type Waver interface {
 	ParentWave() Waver
 
 	//Label - print info about it
-	Label(string)
+	Info(string)
 }

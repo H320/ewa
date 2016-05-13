@@ -272,14 +272,14 @@ func (in Impulses) Print() {
 	}
 }
 
-//Label selector
-func (in Waves) Label(label string) {
-	Impulses(in.Impulses).Label(label)
-	Corrections(in.Corrections).Label(label)
+//Info selector
+func (in Waves) Info(label string) {
+	Impulses(in.Impulses).Info(label)
+	Corrections(in.Corrections).Info(label)
 }
 
-//Label corrections selector
-func (in Corrections) Label(label string) {
+//Info corrections selector
+func (in Corrections) Info(label string) {
 	for _, one := range in {
 		log.WithFields(log.Fields{
 			"M": one.Move,
@@ -289,8 +289,8 @@ func (in Corrections) Label(label string) {
 	}
 }
 
-//Label impulses selector
-func (in Impulses) Label(label string) {
+//Info impulses selector
+func (in Impulses) Info(label string) {
 	for _, one := range in {
 		log.WithFields(log.Fields{
 			"M": one.Move,
@@ -299,8 +299,8 @@ func (in Impulses) Label(label string) {
 	}
 }
 
-//Label corrections selector
-func (one Correction) Label(label string) {
+//Info corrections selector
+func (one Correction) Info(label string) {
 	log.WithFields(log.Fields{
 		"M": one.Move,
 		"D": one.Degree(),
@@ -308,8 +308,8 @@ func (one Correction) Label(label string) {
 	}).Info(label)
 }
 
-//Label impulses selector
-func (one Impulse) Label(label string) {
+//Info impulses selector
+func (one Impulse) Info(label string) {
 	log.WithFields(log.Fields{
 		"M": one.Move,
 		"D": fmt.Sprintf("%3d", one.Degree()),

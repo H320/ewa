@@ -2,8 +2,8 @@ package ewa
 
 import "github.com/apex/log"
 
-//Label corrections selector
-func (w Wave) Label(label string) {
+//Info corrections selector
+func (w Wave) Info(label string) {
 	log.WithFields(log.Fields{
 		"M": w.Move,
 		"D": w.Degree(),
