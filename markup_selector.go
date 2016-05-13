@@ -21,6 +21,24 @@ func (m *Markup) Waves() Waves {
 	return w
 }
 
+//Ongoing impulse/correction finder
+func (in Waves) Ongoing(price Point) (out Waves) {
+
+	for _, one := range in.Impulses {
+		if one.Ends().After(price.T) {
+			out.Impulses = append(out.Impulses, one)
+		}
+	}
+
+	for _, one := range in.Corrections {
+		if one.Ends().After(price.T) {
+			out.Corrections = append(out.Corrections, one)
+		}
+	}
+
+	return
+}
+
 //ByWave impulse/correction finder
 func (m *Markup) ByWave(w Waver) (*Impulse, *Correction, bool) {
 
