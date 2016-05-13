@@ -25,13 +25,13 @@ func (m *Markup) Waves() Waves {
 func (in Waves) Ongoing(price Point) (out Waves) {
 
 	for _, one := range in.Impulses {
-		if one.Ends().After(price.T) {
+		if one.Begins().Before(price.T) && one.Ends().After(price.T) {
 			out.Impulses = append(out.Impulses, one)
 		}
 	}
 
 	for _, one := range in.Corrections {
-		if one.Ends().After(price.T) {
+		if one.Begins().Before(price.T) && one.Ends().After(price.T) {
 			out.Corrections = append(out.Corrections, one)
 		}
 	}
