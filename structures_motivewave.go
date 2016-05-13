@@ -6,6 +6,7 @@ type mwQuery struct {
 	ImpulsesEnding  []mwImpulse     `xml:"graph>ending_diagonal"`
 	Corrections     []mwCorrection  `xml:"graph>correction"`
 	Triangles       []mwTriangle    `xml:"graph>triangle"`
+	Combo           []mwCombo       `xml:"graph>combination"`
 	TripleCombo     []mwComboTriple `xml:"graph>triple_combo"`
 }
 
@@ -49,6 +50,17 @@ type mwComboTriple struct {
 	WaveY  mwPoint `xml:"waveY"`
 	WaveX2 mwPoint `xml:"waveX2"`
 	WaveZ  mwPoint `xml:"waveZ"`
+}
+
+type mwCombo struct {
+	ID       int64  `xml:"id,attr"`
+	ParentID int64  `xml:"parentId,attr"`
+	Degree   string `xml:"degree,attr"`
+
+	Origin mwPoint `xml:"origin"`
+	WaveW  mwPoint `xml:"waveW"`
+	WaveX  mwPoint `xml:"waveX"`
+	WaveY  mwPoint `xml:"waveY"`
 }
 
 type mwTriangle struct {
