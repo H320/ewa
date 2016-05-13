@@ -21,6 +21,24 @@ func (m *Markup) Waves() Waves {
 	return w
 }
 
+//ByWave impulse/correction finder
+func (m *Markup) ByWave(w Waver) (*Impulse, *Correction, bool) {
+
+	for _, one := range m.Corrections {
+		if one.Starts() == w.Starts() && one.Tops() == w.Tops() {
+			return &Impulse{}, one, true
+		}
+	}
+
+	for _, one := range m.Impulses {
+		if one.Starts() == w.Starts() && one.Tops() == w.Tops() {
+			return one, &Correction{}, true
+		}
+	}
+
+	return &Impulse{}, &Correction{}, false
+}
+
 //FromTo finds waves that start and end at specified price
 func (in Waves) FromTo(from, to float64) (out Waves) {
 	for _, one := range in.Impulses {
@@ -302,7 +320,7 @@ func (in Corrections) Triple() (out Corrections) {
 	return in.Type(CTTriple)
 }
 
-//Corr gets only impulses
+//Corr gets only corrections
 func (in Waves) Corr() Corrections {
 	return in.Corrections
 }
