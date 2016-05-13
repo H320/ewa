@@ -262,6 +262,21 @@ func (in Corrections) Print() {
 	}
 }
 
+//Len how many corrections
+func (in Corrections) Len() int {
+	return len(in)
+}
+
+//Len how many impulses
+func (in Impulses) Len() int {
+	return len(in)
+}
+
+//Len how many waves
+func (in Waves) Len() int {
+	return len(in.Corrections) + len(in.Impulses)
+}
+
 //Print impulses selector
 func (in Impulses) Print() {
 	for _, one := range in {
