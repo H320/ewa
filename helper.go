@@ -11,6 +11,11 @@ func NewHelper(m *Markup, p Point) Helper {
 	return Helper{*m, p}
 }
 
+//SetLastPrice is for updating lastPrice
+func (h Helper) SetLastPrice(price Point) {
+	h.lastPrice = price
+}
+
 //InCorrection returns if there is ongoing correction of this degree
 func (h Helper) InCorrection(degree DegreeType) bool {
 	return h.markup.Waves().Degree(degree).Ongoing(h.lastPrice).Corr().Len() > 0
