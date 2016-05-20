@@ -25,17 +25,17 @@ var _ = Describe("Motivewave", func() {
 		mw := &mwQuery{}
 		_ = mw.importMotiveWaveXML(path)
 		markup, _ := mw.parse()
-		waves := markup.Waves()
 
 		It("Ongoing", func() {
 
-			price := Point{T: time.Now()}
+			price := &Point{T: time.Now()}
 
-			helper := NewHelper(markup, price)
+			helper := NewHelper("My", markup, price)
 
 			degrees := []DegreeType{Minute, Minuette, Subminuette, Micro, Submicro}
 
-			waves.Ongoing(price).Info("Ongoing")
+			sel := NewWavesSelector("Selector", markup, price)
+			sel.Ongoing().Info()
 
 			for _, degree := range degrees {
 				log.Infof("In correction %s = %t", degree, helper.InCorrection(degree))

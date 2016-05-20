@@ -14,106 +14,107 @@ var _ = Describe("Motivewave", func() {
 	log.SetHandler(text.New(os.Stdout))
 	log.SetLevel(log.DebugLevel)
 
-	// path := "/Users/andrewvorobyov/gdrive/MotiveWave" +
-	// 	"/OANDA/analysis/CFD/SPX500USD" +
-	// 	"/Primary Analysis.mwml"
+	path := "/Users/andrewvorobyov/gdrive/MotiveWave" +
+		"/OANDA/analysis/CFD/SPX500USD" +
+		"/Primary Analysis.mwml"
 
-	// Describe("Sorting Impulse", func() {
-	//
-	// 	mw := &mwQuery{}
-	// 	_ = mw.importMotiveWaveXML(path)
-	// 	markup, _ := mw.parse()
-	// 	waves := markup.Waves()
-	//
-	// 	Describe("Degree", func() {
-	// 		It("ASC", func() {
-	// 			waves.Imp().ByDegree(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Imp().ByDegree(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Duration", func() {
-	// 		It("ASC", func() {
-	// 			waves.Imp().ByDuration(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Imp().ByDuration(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Len", func() {
-	// 		It("ASC", func() {
-	// 			waves.Imp().ByLen(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Imp().ByLen(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Retrace", func() {
-	// 		It("ASC", func() {
-	// 			waves.Up().Imp().ByRetrace(.5, true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Up().Imp().ByRetrace(.5, false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Begins", func() {
-	// 		It("ASC", func() {
-	// 			waves.Imp().ByBegins(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Imp().ByBegins(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Ends", func() {
-	// 		It("ASC", func() {
-	// 			waves.Imp().ByEnds(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Imp().ByEnds(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Starts", func() {
-	// 		It("ASC", func() {
-	// 			waves.Up().Imp().ByStarts(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Up().Imp().ByStarts(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Tops", func() {
-	// 		It("ASC", func() {
-	// 			waves.Down().Imp().ByTops(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Down().Imp().ByTops(false).Print()
-	// 		})
-	// 	})
-	//
-	// 	Describe("Slope", func() {
-	// 		It("ASC", func() {
-	// 			waves.Imp().BySlope(true).Print()
-	// 		})
-	//
-	// 		It("DESC", func() {
-	// 			waves.Imp().BySlope(false).Print()
-	// 		})
-	// 	})
-	//
-	// })
+	Describe("Sorting Impulse", func() {
+
+		mw := &mwQuery{}
+		_ = mw.importMotiveWaveXML(path)
+		markup, _ := mw.parse()
+
+		selector := NewWavesSelector("Tester", markup, &Point{})
+
+		Describe("Degree", func() {
+			It("ASC", func() {
+				selector.Imp().ByDegree(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Imp().ByDegree(false).Info()
+			})
+		})
+
+		Describe("Duration", func() {
+			It("ASC", func() {
+				selector.Imp().ByDuration(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Imp().ByDuration(false).Info()
+			})
+		})
+
+		Describe("Len", func() {
+			It("ASC", func() {
+				selector.Imp().ByLen(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Imp().ByLen(false).Info()
+			})
+		})
+
+		Describe("Retrace", func() {
+			It("ASC", func() {
+				selector.Up().Imp().ByRetrace(.5, true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Up().Imp().ByRetrace(.5, false).Info()
+			})
+		})
+
+		Describe("Begins", func() {
+			It("ASC", func() {
+				selector.Imp().ByBegins(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Imp().ByBegins(false).Info()
+			})
+		})
+
+		Describe("Ends", func() {
+			It("ASC", func() {
+				selector.Imp().ByEnds(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Imp().ByEnds(false).Info()
+			})
+		})
+
+		Describe("Starts", func() {
+			It("ASC", func() {
+				selector.Up().Imp().ByStarts(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Up().Imp().ByStarts(false).Info()
+			})
+		})
+
+		Describe("Tops", func() {
+			It("ASC", func() {
+				selector.Down().Imp().ByTops(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Down().Imp().ByTops(false).Info()
+			})
+		})
+
+		Describe("Slope", func() {
+			It("ASC", func() {
+				selector.Imp().BySlope(true).Info()
+			})
+
+			It("DESC", func() {
+				selector.Imp().BySlope(false).Info()
+			})
+		})
+
+	})
 })
