@@ -1,5 +1,24 @@
 package ewa
 
+import (
+	"fmt"
+
+	"github.com/apex/log"
+)
+
+//Info prints impulse with label
+func (i Impulse) Info(label string) {
+	log.WithFields(log.Fields{
+		"M": i.Move,
+		"D": fmt.Sprintf("%3d", i.Degree()),
+	}).Info(label)
+}
+
+//Print impulse
+func (i Impulse) Print() {
+	i.Info("Imp")
+}
+
 //Sub - does it has subwaves
 func (i Impulse) Sub() bool {
 	return i.W1 != nil && i.W2 != nil && i.W3 != nil && i.W4 != nil && i.W5 != nil

@@ -1,5 +1,25 @@
 package ewa
 
+import (
+	"fmt"
+
+	"github.com/apex/log"
+)
+
+//Info prints impulse with label
+func (c Correction) Info(label string) {
+	log.WithFields(log.Fields{
+		"M": c.Move,
+		"D": fmt.Sprintf("%3d", c.Degree()),
+		"T": c.Type(),
+	}).Info(label)
+}
+
+//Print impulse
+func (c Correction) Print() {
+	c.Info("Corr")
+}
+
 //Sub - does it has subwaves
 func (c Correction) Sub() bool {
 	return c.Zigzag != nil || c.Flat != nil ||

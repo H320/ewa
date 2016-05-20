@@ -314,23 +314,6 @@ func (in Impulses) Info(label string) {
 	}
 }
 
-//Info corrections selector
-func (one Correction) Info(label string) {
-	log.WithFields(log.Fields{
-		"M": one.Move,
-		"D": one.Degree(),
-		"T": one.Type(),
-	}).Info(label)
-}
-
-//Info impulses selector
-func (one Impulse) Info(label string) {
-	log.WithFields(log.Fields{
-		"M": one.Move,
-		"D": fmt.Sprintf("%3d", one.Degree()),
-	}).Info(label)
-}
-
 //Imp gets only impulses
 func (in Waves) Imp() Impulses {
 	return in.Impulses
