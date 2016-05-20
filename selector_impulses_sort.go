@@ -21,15 +21,15 @@ func (ws *impulseSorter) Less(i, j int) bool {
 	return ws.sortFn(ws.waves[i], ws.waves[j])
 }
 
-func newWaverSorter(waves Impulses, fn byImpulse) *impulseSorter {
+func newWaverSorter(selector SelectorImpulses, fn byImpulse) *impulseSorter {
 	return &impulseSorter{
-		waves:  waves,
+		waves:  selector.Imp,
 		sortFn: fn,
 	}
 }
 
 //ByDegree sorting of impulses
-func (in Impulses) ByDegree(asc bool) Impulses {
+func (in SelectorImpulses) ByDegree(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			return i.Degree() < j.Degree()
@@ -42,7 +42,7 @@ func (in Impulses) ByDegree(asc bool) Impulses {
 }
 
 //ByDuration sorting of impulses
-func (in Impulses) ByDuration(asc bool) Impulses {
+func (in SelectorImpulses) ByDuration(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			return i.Duration() < j.Duration()
@@ -56,7 +56,7 @@ func (in Impulses) ByDuration(asc bool) Impulses {
 }
 
 //ByLen sorting of impulses
-func (in Impulses) ByLen(asc bool) Impulses {
+func (in SelectorImpulses) ByLen(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			return i.Len() < j.Len()
@@ -70,7 +70,7 @@ func (in Impulses) ByLen(asc bool) Impulses {
 }
 
 //ByRetrace sorting of impulses
-func (in Impulses) ByRetrace(val float64, asc bool) Impulses {
+func (in SelectorImpulses) ByRetrace(val float64, asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			if i.Up() {
@@ -91,7 +91,7 @@ func (in Impulses) ByRetrace(val float64, asc bool) Impulses {
 }
 
 //ByBegins sorting of impulses
-func (in Impulses) ByBegins(asc bool) Impulses {
+func (in SelectorImpulses) ByBegins(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			return j.Begins().After(i.Begins())
@@ -105,7 +105,7 @@ func (in Impulses) ByBegins(asc bool) Impulses {
 }
 
 //ByEnds sorting of impulses
-func (in Impulses) ByEnds(asc bool) Impulses {
+func (in SelectorImpulses) ByEnds(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			return j.Ends().After(i.Ends())
@@ -119,7 +119,7 @@ func (in Impulses) ByEnds(asc bool) Impulses {
 }
 
 //ByStarts sorting of impulses
-func (in Impulses) ByStarts(asc bool) Impulses {
+func (in SelectorImpulses) ByStarts(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			if i.Up() {
@@ -139,7 +139,7 @@ func (in Impulses) ByStarts(asc bool) Impulses {
 }
 
 //ByTops sorting of impulses
-func (in Impulses) ByTops(asc bool) Impulses {
+func (in SelectorImpulses) ByTops(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			if i.Up() {
@@ -159,7 +159,7 @@ func (in Impulses) ByTops(asc bool) Impulses {
 }
 
 //BySlope sorting of impulses
-func (in Impulses) BySlope(asc bool) Impulses {
+func (in SelectorImpulses) BySlope(asc bool) SelectorImpulses {
 	sorter := newWaverSorter(in, func(i, j Impulse) bool {
 		if asc {
 			return i.Slope() < j.Slope()
