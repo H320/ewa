@@ -214,92 +214,96 @@ func (m *Markup) processTriangles(mwQuery *mwQuery) {
 
 func (m *Markup) processTripleCombo(mwQuery *mwQuery) {
 	for _, w := range mwQuery.TripleCombo {
-
-		degree := Degree(w.Degree)
-		lessDegree := degree >> 1
-
-		//Generating points
-
-		ori := PointFromMW(w.Origin)
-		pWW := PointFromMW(w.WaveW)
-		pWX := PointFromMW(w.WaveX)
-		pWY := PointFromMW(w.WaveY)
-		pWX2 := PointFromMW(w.WaveX2)
-		pWZ := PointFromMW(w.WaveZ)
-
-		//Generating sub waves
-
-		wave := &Wave{Move: &Move{ori, pWZ}, WaveDegree: degree}
-
-		subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
-		subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
-		subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
-		subWX2 := &Wave{Move: &Move{pWY, pWX2}, WaveDegree: lessDegree}
-		subWZ := &Wave{Move: &Move{pWX2, pWZ}, WaveDegree: lessDegree}
-
-		setParentWave(wave, subWW, subWX, subWY, subWX2, subWZ)
-
-		// Generating triangle wave
-		tripleWave := &Wave{Move: &Move{ori, pWZ}, WaveDegree: degree}
-
-		tripleCorrection := m.addCorrection(&Correction{Wave: tripleWave})
-
-		triple := &Triple{
-			W:  m.addCorrection(&Correction{Wave: subWW}),
-			X:  m.addCorrection(&Correction{Wave: subWX}),
-			Y:  m.addCorrection(&Correction{Wave: subWY}),
-			X2: m.addCorrection(&Correction{Wave: subWX2}),
-			Z:  m.addCorrection(&Correction{Wave: subWZ}),
+		if w.WaveX2.P == 0 {
+			m.processComboWave(w)
+		} else {
+			m.processTripleComboWave(w)
 		}
-
-		tripleCorrection.Triple = triple
-
-		log.WithField("Triple", triple).Debug("+Triple")
-
-		m.Triples = append(m.Triples, triple)
 	}
 }
 
-func (m *Markup) processCombo(mwQuery *mwQuery) {
+func (m *Markup) processTripleComboWave(w mwComboTriple) {
+	degree := Degree(w.Degree)
+	lessDegree := degree >> 1
 
-	for _, w := range mwQuery.Combo {
-		degree := Degree(w.Degree)
-		lessDegree := degree >> 1
+	//Generating points
 
-		//Generating points
+	ori := PointFromMW(w.Origin)
+	pWW := PointFromMW(w.WaveW)
+	pWX := PointFromMW(w.WaveX)
+	pWY := PointFromMW(w.WaveY)
+	pWX2 := PointFromMW(w.WaveX2)
+	pWZ := PointFromMW(w.WaveZ)
 
-		ori := PointFromMW(w.Origin)
-		pWW := PointFromMW(w.WaveW)
-		pWX := PointFromMW(w.WaveX)
-		pWY := PointFromMW(w.WaveY)
+	//Generating sub waves
 
-		//Generating sub waves
+	wave := &Wave{Move: &Move{ori, pWZ}, WaveDegree: degree}
 
-		wave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
+	subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
+	subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
+	subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
+	subWX2 := &Wave{Move: &Move{pWY, pWX2}, WaveDegree: lessDegree}
+	subWZ := &Wave{Move: &Move{pWX2, pWZ}, WaveDegree: lessDegree}
 
-		subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
-		subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
-		subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
+	setParentWave(wave, subWW, subWX, subWY, subWX2, subWZ)
 
-		setParentWave(wave, subWW, subWX, subWY)
+	// Generating triangle wave
+	tripleWave := &Wave{Move: &Move{ori, pWZ}, WaveDegree: degree}
 
-		// Generating triangle wave
-		comboWave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
+	tripleCorrection := m.addCorrection(&Correction{Wave: tripleWave})
 
-		comboCorrection := m.addCorrection(&Correction{Wave: comboWave})
-
-		combo := &Combo{
-			W: m.addCorrection(&Correction{Wave: subWW}),
-			X: m.addCorrection(&Correction{Wave: subWX}),
-			Y: m.addCorrection(&Correction{Wave: subWY}),
-		}
-
-		comboCorrection.Combo = combo
-
-		log.WithField("Combo", combo).Debug("+Combo")
-
-		m.Combos = append(m.Combos, combo)
+	triple := &Triple{
+		W:  m.addCorrection(&Correction{Wave: subWW}),
+		X:  m.addCorrection(&Correction{Wave: subWX}),
+		Y:  m.addCorrection(&Correction{Wave: subWY}),
+		X2: m.addCorrection(&Correction{Wave: subWX2}),
+		Z:  m.addCorrection(&Correction{Wave: subWZ}),
 	}
+
+	tripleCorrection.Triple = triple
+
+	log.WithField("Triple", triple).Debug("+Triple")
+
+	m.Triples = append(m.Triples, triple)
+}
+
+func (m *Markup) processComboWave(w mwComboTriple) {
+	degree := Degree(w.Degree)
+	lessDegree := degree >> 1
+
+	//Generating points
+
+	ori := PointFromMW(w.Origin)
+	pWW := PointFromMW(w.WaveW)
+	pWX := PointFromMW(w.WaveX)
+	pWY := PointFromMW(w.WaveY)
+
+	//Generating sub waves
+
+	wave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
+
+	subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
+	subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
+	subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
+
+	setParentWave(wave, subWW, subWX, subWY)
+
+	// Generating triangle wave
+	comboWave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
+
+	comboCorrection := m.addCorrection(&Correction{Wave: comboWave})
+
+	combo := &Combo{
+		W: m.addCorrection(&Correction{Wave: subWW}),
+		X: m.addCorrection(&Correction{Wave: subWX}),
+		Y: m.addCorrection(&Correction{Wave: subWY}),
+	}
+
+	comboCorrection.Combo = combo
+
+	log.WithField("Combo", combo).Debug("+Combo")
+
+	m.Combos = append(m.Combos, combo)
 }
 
 func (m *Markup) processTree(mwQuery *mwQuery) {
