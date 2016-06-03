@@ -20,7 +20,7 @@ var _ = Describe("Motivewave", func() {
 		"/OANDA/analysis/CFD/SPX500USD" +
 		"/Primary Analysis.mwml"
 
-	FDescribe("Selectors", func() {
+	Describe("Selectors", func() {
 		log.SetLevel(log.InfoLevel)
 		mw := &mwQuery{}
 		_ = mw.importMotiveWaveXML(path)

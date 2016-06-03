@@ -38,28 +38,4 @@ var _ = Describe("Motivewave", func() {
 			Expect(err).Should(Succeed())
 		})
 	})
-
-	Describe("Selectors", func() {
-		mw := &mwQuery{}
-		_ = mw.importMotiveWaveXML(path)
-		markup, _ := mw.parse()
-		waves := markup.Waves()
-
-		It("Degree", func() {
-			waves.Degree(Micro).Print()
-		})
-
-		It("Without Sorting", func() {
-			waves.Imp().Print()
-		})
-
-		It("To", func() {
-			waves.To(1869.1).Print()
-		})
-
-		It("From", func() {
-			waves.From(1944.3).Print()
-		})
-
-	})
 })
