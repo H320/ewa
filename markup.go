@@ -302,6 +302,61 @@ func (m *Markup) processCombo(mwQuery *mwQuery) {
 	}
 }
 
+func (m *Markup) processTree(mwQuery *mwQuery) {
+	log.Debug("Processing Tree")
+
+	setNext := func(curr *Wave) {
+		for _, n := range m.Impulses {
+			if curr.Ends() == n.Begins() && curr.Degree() == n.Degree() {
+				curr.Next = n.Wave
+				n.Prev = curr
+				return
+			}
+		}
+
+		for _, n := range m.Corrections {
+			if curr.Ends() == n.Begins() && curr.Degree() == n.Degree() {
+				curr.Next = n.Wave
+				n.Prev = curr
+				return
+			}
+		}
+	}
+
+	for _, i := range m.Impulses {
+		if i.Next == nil {
+			setNext(i.Wave)
+		}
+	}
+
+	for _, i := range m.Corrections {
+		if i.Next == nil {
+			setNext(i.Wave)
+		}
+	}
+}
+
+func (m *Markup) printStackTree() {
+
+	for _, one := range m.Impulses {
+		log.WithFields(log.Fields{
+			"Time": fmt.Sprintf("%s->%s", one.Base.T, one.End.T),
+			"Move": fmt.Sprintf("%.2f->%.2f", one.Base.P, one.End.P),
+			"Prev": one.PrevWave(),
+			"Next": one.NextWave(),
+		}).Debug("Imp")
+	}
+
+	for _, one := range m.Corrections {
+		log.WithFields(log.Fields{
+			"Time": fmt.Sprintf("%s->%s", one.Base.T, one.End.T),
+			"Move": fmt.Sprintf("%.2f->%.2f", one.Base.P, one.End.P),
+			"Prev": one.PrevWave(),
+			"Next": one.NextWave(),
+		}).Debug("Cor")
+	}
+}
+
 func (m *Markup) printStack() {
 
 	for _, one := range m.Impulses {
