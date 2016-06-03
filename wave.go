@@ -17,15 +17,24 @@ func (w Wave) Degree() DegreeType {
 
 //ParentWave getter
 func (w Wave) ParentWave() Waver {
-	return w.Parent
+	if w.Parent != nil {
+		return w.Parent
+	}
+	return nil
 }
 
 //NextWave getter
 func (w Wave) NextWave() Waver {
-	return w.Next
+	if w.Next != nil {
+		return w.Next
+	}
+	return nil
 }
 
 //PrevWave getter
 func (w Wave) PrevWave() Waver {
-	return w.Prev
+	if w.Prev != nil {
+		return w.Prev
+	}
+	return nil
 }
