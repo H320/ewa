@@ -2,21 +2,19 @@ package ewa
 
 //Helper - helper for advanced EWA functions
 type Helper struct {
-	markup    Markup
-	lastPrice Point
+	sel       SelectorWaves
+	lastPrice *Point
 }
 
 //NewHelper creates new helper
-func NewHelper(m *Markup, p Point) Helper {
-	return Helper{*m, p}
-}
-
-//SetLastPrice is for updating lastPrice
-func (h Helper) SetLastPrice(price Point) {
-	h.lastPrice = price
+func NewHelper(label string, m *Markup, lastPrice *Point) Helper {
+	return Helper{
+		sel:       NewWavesSelector(label, m, lastPrice),
+		lastPrice: lastPrice,
+	}
 }
 
 //InCorrection returns if there is ongoing correction of this degree
 func (h Helper) InCorrection(degree DegreeType) bool {
-	return h.markup.Waves().Degree(degree).Ongoing(h.lastPrice).Corr().Len() > 0
+	return h.sel.Degree(degree).Ongoing().Cor().Len() > 0
 }

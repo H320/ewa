@@ -18,100 +18,101 @@ var _ = Describe("Motivewave", func() {
 		"/OANDA/analysis/CFD/SPX500USD" +
 		"/Primary Analysis.mwml"
 
-	Describe("Sorting Correction", func() {
+	Describe("Sorting Corection", func() {
 
 		mw := &mwQuery{}
 		_ = mw.importMotiveWaveXML(path)
 		markup, _ := mw.parse()
-		waves := markup.Waves()
+
+		selector := NewWavesSelector("Tester", markup, &Point{})
 
 		Describe("Degree", func() {
 			It("ASC", func() {
-				waves.Corr().ByDegree(true).Print()
+				selector.Cor().ByDegree(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Corr().ByDegree(false).Print()
+				selector.Cor().ByDegree(false).Info()
 			})
 		})
 
 		Describe("Duration", func() {
 			It("ASC", func() {
-				waves.Corr().ByDuration(true).Print()
+				selector.Cor().ByDuration(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Corr().ByDuration(false).Print()
+				selector.Cor().ByDuration(false).Info()
 			})
 		})
 
 		Describe("Len", func() {
 			It("ASC", func() {
-				waves.Corr().ByLen(true).Print()
+				selector.Cor().ByLen(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Corr().ByLen(false).Print()
+				selector.Cor().ByLen(false).Info()
 			})
 		})
 
 		Describe("Retrace", func() {
 			It("ASC", func() {
-				waves.Up().Corr().ByRetrace(.5, true).Print()
+				selector.Up().Cor().ByRetrace(.5, true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Up().Corr().ByRetrace(.5, false).Print()
+				selector.Up().Cor().ByRetrace(.5, false).Info()
 			})
 		})
 
 		Describe("Begins", func() {
 			It("ASC", func() {
-				waves.Corr().ByBegins(true).Print()
+				selector.Cor().ByBegins(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Corr().ByBegins(false).Print()
+				selector.Cor().ByBegins(false).Info()
 			})
 		})
 
 		Describe("Ends", func() {
 			It("ASC", func() {
-				waves.Corr().ByEnds(true).Print()
+				selector.Cor().ByEnds(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Corr().ByEnds(false).Print()
+				selector.Cor().ByEnds(false).Info()
 			})
 		})
 
 		Describe("Starts", func() {
 			It("ASC", func() {
-				waves.Up().Corr().ByStarts(true).Print()
+				selector.Up().Cor().ByStarts(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Up().Corr().ByStarts(false).Print()
+				selector.Up().Cor().ByStarts(false).Info()
 			})
 		})
 
 		Describe("Tops", func() {
 			It("ASC", func() {
-				waves.Down().Corr().ByTops(true).Print()
+				selector.Down().Cor().ByTops(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Down().Corr().ByTops(false).Print()
+				selector.Down().Cor().ByTops(false).Info()
 			})
 		})
 
 		Describe("Slope", func() {
 			It("ASC", func() {
-				waves.Corr().BySlope(true).Print()
+				selector.Cor().BySlope(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Corr().BySlope(false).Print()
+				selector.Cor().BySlope(false).Info()
 			})
 		})
 

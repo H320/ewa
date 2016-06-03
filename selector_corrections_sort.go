@@ -21,15 +21,15 @@ func (ws *correctionSorter) Less(i, j int) bool {
 	return ws.sortFn(ws.waves[i], ws.waves[j])
 }
 
-func newCorrectionSorter(waves Corrections, fn byCorrection) *correctionSorter {
+func newCorrectionSorter(selector SelectorCorrections, fn byCorrection) *correctionSorter {
 	return &correctionSorter{
-		waves:  waves,
+		waves:  selector.Corr,
 		sortFn: fn,
 	}
 }
 
 //ByDegree sorting of impulses
-func (in Corrections) ByDegree(asc bool) Corrections {
+func (in SelectorCorrections) ByDegree(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			return i.Degree() < j.Degree()
@@ -42,7 +42,7 @@ func (in Corrections) ByDegree(asc bool) Corrections {
 }
 
 //ByDuration sorting of impulses
-func (in Corrections) ByDuration(asc bool) Corrections {
+func (in SelectorCorrections) ByDuration(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			return i.Duration() < j.Duration()
@@ -56,7 +56,7 @@ func (in Corrections) ByDuration(asc bool) Corrections {
 }
 
 //ByLen sorting of impulses
-func (in Corrections) ByLen(asc bool) Corrections {
+func (in SelectorCorrections) ByLen(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			return i.Len() < j.Len()
@@ -70,7 +70,7 @@ func (in Corrections) ByLen(asc bool) Corrections {
 }
 
 //ByRetrace sorting of impulses
-func (in Corrections) ByRetrace(val float64, asc bool) Corrections {
+func (in SelectorCorrections) ByRetrace(val float64, asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			if i.Up() {
@@ -91,7 +91,7 @@ func (in Corrections) ByRetrace(val float64, asc bool) Corrections {
 }
 
 //ByBegins sorting of impulses
-func (in Corrections) ByBegins(asc bool) Corrections {
+func (in SelectorCorrections) ByBegins(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			return j.Begins().After(i.Begins())
@@ -105,7 +105,7 @@ func (in Corrections) ByBegins(asc bool) Corrections {
 }
 
 //ByEnds sorting of impulses
-func (in Corrections) ByEnds(asc bool) Corrections {
+func (in SelectorCorrections) ByEnds(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			return j.Ends().After(i.Ends())
@@ -119,7 +119,7 @@ func (in Corrections) ByEnds(asc bool) Corrections {
 }
 
 //ByStarts sorting of impulses
-func (in Corrections) ByStarts(asc bool) Corrections {
+func (in SelectorCorrections) ByStarts(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			if i.Up() {
@@ -139,7 +139,7 @@ func (in Corrections) ByStarts(asc bool) Corrections {
 }
 
 //ByTops sorting of impulses
-func (in Corrections) ByTops(asc bool) Corrections {
+func (in SelectorCorrections) ByTops(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			if i.Up() {
@@ -159,7 +159,7 @@ func (in Corrections) ByTops(asc bool) Corrections {
 }
 
 //BySlope sorting of impulses
-func (in Corrections) BySlope(asc bool) Corrections {
+func (in SelectorCorrections) BySlope(asc bool) SelectorCorrections {
 	sorter := newCorrectionSorter(in, func(i, j Correction) bool {
 		if asc {
 			return i.Slope() < j.Slope()

@@ -23,95 +23,96 @@ var _ = Describe("Motivewave", func() {
 		mw := &mwQuery{}
 		_ = mw.importMotiveWaveXML(path)
 		markup, _ := mw.parse()
-		waves := markup.Waves()
+
+		selector := NewWavesSelector("Tester", markup, &Point{})
 
 		Describe("Degree", func() {
 			It("ASC", func() {
-				waves.Imp().ByDegree(true).Print()
+				selector.Imp().ByDegree(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Imp().ByDegree(false).Print()
+				selector.Imp().ByDegree(false).Info()
 			})
 		})
 
 		Describe("Duration", func() {
 			It("ASC", func() {
-				waves.Imp().ByDuration(true).Print()
+				selector.Imp().ByDuration(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Imp().ByDuration(false).Print()
+				selector.Imp().ByDuration(false).Info()
 			})
 		})
 
 		Describe("Len", func() {
 			It("ASC", func() {
-				waves.Imp().ByLen(true).Print()
+				selector.Imp().ByLen(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Imp().ByLen(false).Print()
+				selector.Imp().ByLen(false).Info()
 			})
 		})
 
 		Describe("Retrace", func() {
 			It("ASC", func() {
-				waves.Up().Imp().ByRetrace(.5, true).Print()
+				selector.Up().Imp().ByRetrace(.5, true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Up().Imp().ByRetrace(.5, false).Print()
+				selector.Up().Imp().ByRetrace(.5, false).Info()
 			})
 		})
 
 		Describe("Begins", func() {
 			It("ASC", func() {
-				waves.Imp().ByBegins(true).Print()
+				selector.Imp().ByBegins(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Imp().ByBegins(false).Print()
+				selector.Imp().ByBegins(false).Info()
 			})
 		})
 
 		Describe("Ends", func() {
 			It("ASC", func() {
-				waves.Imp().ByEnds(true).Print()
+				selector.Imp().ByEnds(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Imp().ByEnds(false).Print()
+				selector.Imp().ByEnds(false).Info()
 			})
 		})
 
 		Describe("Starts", func() {
 			It("ASC", func() {
-				waves.Up().Imp().ByStarts(true).Print()
+				selector.Up().Imp().ByStarts(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Up().Imp().ByStarts(false).Print()
+				selector.Up().Imp().ByStarts(false).Info()
 			})
 		})
 
 		Describe("Tops", func() {
 			It("ASC", func() {
-				waves.Down().Imp().ByTops(true).Print()
+				selector.Down().Imp().ByTops(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Down().Imp().ByTops(false).Print()
+				selector.Down().Imp().ByTops(false).Info()
 			})
 		})
 
 		Describe("Slope", func() {
 			It("ASC", func() {
-				waves.Imp().BySlope(true).Print()
+				selector.Imp().BySlope(true).Info()
 			})
 
 			It("DESC", func() {
-				waves.Imp().BySlope(false).Print()
+				selector.Imp().BySlope(false).Info()
 			})
 		})
 
