@@ -47,6 +47,7 @@ func (mw *mwQuery) parse() (*Markup, error) {
 	markup.processImpulses(mw)
 	markup.processCorrections(mw)
 	markup.processTriangles(mw)
+	markup.processCombo(mw)
 	markup.processTripleCombo(mw)
 	markup.processTree(mw)
 	markup.printStack()

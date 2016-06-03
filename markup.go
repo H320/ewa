@@ -306,6 +306,48 @@ func (m *Markup) processComboWave(w mwComboTriple) {
 	m.Combos = append(m.Combos, combo)
 }
 
+func (m *Markup) processCombo(mwQuery *mwQuery) {
+	for _, w := range mwQuery.Combo {
+		degree := Degree(w.Degree)
+		lessDegree := degree >> 1
+
+		//Generating points
+
+		ori := PointFromMW(w.Origin)
+		pWW := PointFromMW(w.WaveW)
+		pWX := PointFromMW(w.WaveX)
+		pWY := PointFromMW(w.WaveY)
+
+		//Generating sub waves
+
+		wave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
+
+		subWW := &Wave{Move: &Move{ori, pWW}, WaveDegree: lessDegree}
+		subWX := &Wave{Move: &Move{pWW, pWX}, WaveDegree: lessDegree}
+		subWY := &Wave{Move: &Move{pWX, pWY}, WaveDegree: lessDegree}
+
+		setParentWave(wave, subWW, subWX, subWY)
+
+		// Generating triangle wave
+		comboWave := &Wave{Move: &Move{ori, pWY}, WaveDegree: degree}
+
+		comboCorrection := m.addCorrection(&Correction{Wave: comboWave})
+
+		combo := &Combo{
+			W: m.addCorrection(&Correction{Wave: subWW}),
+			X: m.addCorrection(&Correction{Wave: subWX}),
+			Y: m.addCorrection(&Correction{Wave: subWY}),
+		}
+
+		comboCorrection.Combo = combo
+
+		log.WithField("Combo", combo).Debug("+Combo")
+
+		m.Combos = append(m.Combos, combo)
+
+	}
+}
+
 func (m *Markup) processTree(mwQuery *mwQuery) {
 	log.Debug("Processing Tree")
 
