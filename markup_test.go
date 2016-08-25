@@ -8,6 +8,7 @@ import (
 
 	"github.com/apex/log"
 	"github.com/apex/log/handlers/text"
+	"github.com/joho/godotenv"
 )
 
 var _ = Describe("Markup", func() {
@@ -15,9 +16,8 @@ var _ = Describe("Markup", func() {
 	log.SetHandler(text.New(os.Stdout))
 	log.SetLevel(log.DebugLevel)
 
-	path := "/Users/andrewvorobyov/gdrive/MotiveWave" +
-		"/OANDA/analysis/CFD/SPX500USD" +
-		"/Primary Analysis.mwml"
+	godotenv.Load()
+	path := os.Getenv("PATH_MWML")
 
 	Describe("Tree", func() {
 
